@@ -1,100 +1,158 @@
-<!-- kam strtt karo wrna sallery ni milni -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>✨Rahat Esha Task Helper ✨</title>
+  <title>Rahat Esha Task Helper</title>
   <style>
     :root {
-      --bg: #fff6f9;
-      --panel: #fff;
-      --muted: #a78bfa;
-      --text: #333;
-      --accent: #f472b6; /* pink */
-      --accent-2: #60a5fa; /* blue */
-      --card: #ffffff;
-      --ring: rgba(244,114,182,.35);
-      --shadow: rgba(0,0,0,.08);
+      --bg: #f3f4f6;        /* light gray background */
+      --panel: #ffffff;     /* white cards */
+      --muted: #6b7280;     /* gray text */
+      --text: #111827;      /* dark text */
+      --accent: #2563eb;    /* professional blue */
+      --accent-light: #3b82f6;
+      --border: #e5e7eb;    /* light border */
+      --shadow: rgba(0,0,0,.05);
     }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
+    * { box-sizing: border-box; margin:0; padding:0; }
     body {
-      margin: 0; font: 16px/1.5 "Comic Sans MS", "Poppins", system-ui;
-      background: linear-gradient(180deg, #fdf2f8, #faf5ff);
+      font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
       color: var(--text);
+      line-height: 1.6;
     }
     header {
-      text-align: center; padding: 30px 20px 10px;
+      text-align: center;
+      padding: 40px 20px 20px;
     }
-    .title { font-size: 32px; margin: 0; color: var(--accent); }
-    .subtitle { margin: 0; color: var(--muted); font-size: 15px; }
+    .title { font-size: 28px; font-weight: 700; color: var(--accent); }
+    .subtitle { margin-top: 6px; color: var(--muted); font-size: 15px; }
 
-    .container { max-width: 800px; margin: 20px auto 40px; padding: 0 16px; }
+    .container { max-width: 850px; margin: 30px auto; padding: 0 16px; }
 
     .tabs {
-      display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;
+      display: flex; gap: 10px; justify-content: center;
+      margin-bottom: 25px; flex-wrap: wrap;
     }
     .tab-btn {
-      border: none; background: var(--accent-2); color: white; padding: 10px 16px;
-      border-radius: 20px; cursor: pointer; font-weight: bold;
-      transition: transform .1s ease, background .2s;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all .2s;
     }
-    .tab-btn[aria-selected="true"] { background: var(--accent); transform: scale(1.05); }
+    .tab-btn[aria-selected="true"] {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .tab-btn:hover { border-color: var(--accent-light); }
 
-    .grid { display: grid; gap: 16px; }
-    .card { background: var(--card); border-radius: 20px; padding: 20px; box-shadow: 0 6px 16px var(--shadow); text-align: center; }
+    .grid { display: grid; gap: 18px; }
+    .card {
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 4px 10px var(--shadow);
+      text-align: left;
+      border: 1px solid var(--border);
+    }
+    .card h2 { margin-bottom: 8px; font-size: 18px; font-weight: 600; color: var(--accent); }
+    .desc { color: var(--muted); font-size: 14px; margin-bottom: 15px; }
 
-    .card h2 { margin: 0 0 10px; font-size: 20px; color: var(--accent-2); }
-    .desc { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
-
-    label { display: block; font-size: 13px; color: var(--accent-2); margin: 10px 0 6px; text-align: left; }
+    label { display: block; font-size: 13px; color: var(--text); margin: 10px 0 6px; font-weight: 500; }
     input, select, textarea {
-      width: 100%; padding: 10px; border-radius: 12px; border: 2px solid #fbcfe8;
-      background: #fff0f6; color: var(--text); outline: none;
+      width: 100%; padding: 10px 12px; border-radius: 8px;
+      border: 1px solid var(--border); background: #fff;
+      color: var(--text); outline: none;
       transition: border-color .2s;
+      font-family: inherit; font-size: 14px;
     }
     input:focus, select:focus, textarea:focus { border-color: var(--accent); }
 
     .btn {
-      background: var(--accent); color: white; padding: 10px 16px; border: none;
-      border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 10px;
-      transition: transform .1s ease, background .2s;
+      background: var(--accent);
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      margin-top: 12px;
+      transition: background .2s;
+      font-size: 14px;
     }
-    .btn:hover { background: #ec4899; }
-    .btn:active { transform: scale(0.95); }
-    .btn.secondary { background: var(--accent-2); }
+    .btn:hover { background: var(--accent-light); }
+    .btn.secondary {
+      background: #e5e7eb; color: var(--text);
+    }
+    .btn.secondary:hover { background: #d1d5db; }
 
     .out {
-      margin-top: 12px; padding: 12px; border-radius: 12px; background: #fdf2f8; border: 1px dashed #fbcfe8;
-      font-family: "Comic Sans MS", cursive, sans-serif; font-size: 14px;
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      font-size: 14px;
     }
 
-    footer { text-align: center; margin: 30px auto 40px; font-size: 13px; color: var(--muted); }
-    a { color: var(--accent-2); text-decoration: none; }
+    /* Task Planner */
+    .task-list { margin-top: 15px; }
+    .task {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    .task.completed { text-decoration: line-through; color: var(--muted); }
+    .task button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--accent);
+      margin-left: 8px;
+    }
+
+    footer {
+      text-align: center;
+      margin: 40px auto 50px;
+      font-size: 13px;
+      color: var(--muted);
+    }
     .hidden { display: none; }
   </style>
 </head>
 <body>
   <header>
-    <h1 class="title">✨ Cute Task Helper ✨</h1>
-    <p class="subtitle">Sweet little tools in one cozy page 💖</p>
+    <h1 class="title">Rahat Esha Task Helper</h1>
+    <p class="subtitle">Simple tools to make your day easier</p>
   </header>
 
   <div class="container">
     <nav class="tabs" role="tablist" aria-label="Tools">
-      <button class="tab-btn" role="tab" aria-selected="true" aria-controls="tip" id="tab-tip">🍰 Tip</button>
-      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="convert" id="tab-convert">📏 Convert</button>
-      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="text" id="tab-text">📝 Count</button>
+      <button class="tab-btn" role="tab" aria-selected="true" aria-controls="tip" id="tab-tip">Tip</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="convert" id="tab-convert">Convert</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="text" id="tab-text">Count</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tasks" id="tab-tasks">Tasks</button>
     </nav>
 
     <!-- Tip Calculator -->
     <section id="tip" role="tabpanel" aria-labelledby="tab-tip">
       <div class="grid">
         <div class="card">
-          <h2>🍰 Tip Calculator</h2>
-          <p class="desc">Split your bill with friends 💕</p>
+          <h2>Tip Calculator</h2>
+          <p class="desc">Split your bill with friends</p>
           <label for="bill">Bill amount</label>
           <input id="bill" type="number" min="0" step="0.01" placeholder="e.g., 500" />
 
@@ -109,9 +167,9 @@
           <label for="people">People</label>
           <input id="people" type="number" min="1" step="1" value="1" />
 
-          <button class="btn" id="calcTip">💡 Calculate</button>
-          <button class="btn secondary" id="resetTip">🔄 Reset</button>
-          <div class="out" id="tipOut">Enter values and click Calculate 💫</div>
+          <button class="btn" id="calcTip">Calculate</button>
+          <button class="btn secondary" id="resetTip">Reset</button>
+          <div class="out" id="tipOut">Enter values and click Calculate</div>
         </div>
       </div>
     </section>
@@ -120,17 +178,17 @@
     <section id="convert" role="tabpanel" class="hidden" aria-labelledby="tab-convert">
       <div class="grid">
         <div class="card">
-          <h2>📏 Unit Converter</h2>
-          <p class="desc">Change cm ➜ inches and back 🌸</p>
+          <h2>Unit Converter</h2>
+          <p class="desc">Convert cm ↔ inches</p>
           <label for="cm">Centimeters</label>
           <input id="cm" type="number" step="0.01" placeholder="e.g., 10" />
 
           <label for="inch">Inches</label>
           <input id="inch" type="number" step="0.001" placeholder="e.g., 3.94" />
 
-          <button class="btn" id="toInch">👉 CM ➜ IN</button>
-          <button class="btn secondary" id="toCm">👉 IN ➜ CM</button>
-          <div class="out" id="convOut">Enter a value and convert ✨</div>
+          <button class="btn" id="toInch">CM ➜ IN</button>
+          <button class="btn secondary" id="toCm">IN ➜ CM</button>
+          <div class="out" id="convOut">Enter a value and convert</div>
         </div>
       </div>
     </section>
@@ -139,20 +197,34 @@
     <section id="text" role="tabpanel" class="hidden" aria-labelledby="tab-text">
       <div class="grid">
         <div class="card">
-          <h2>📝 Text Counter</h2>
-          <p class="desc">Count words & characters 🌷</p>
+          <h2>Text Counter</h2>
+          <p class="desc">Count words & characters</p>
           <label for="textbox">Your text</label>
           <textarea id="textbox" rows="6" placeholder="Type or paste here..."></textarea>
-          <button class="btn" id="analyze">🔍 Analyze</button>
-          <button class="btn secondary" id="clearText">❌ Clear</button>
-          <div class="out" id="textOut">Nothing analyzed yet 🌼</div>
+          <button class="btn" id="analyze">Analyze</button>
+          <button class="btn secondary" id="clearText">Clear</button>
+          <div class="out" id="textOut">Nothing analyzed yet</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Task Planner -->
+    <section id="tasks" role="tabpanel" class="hidden" aria-labelledby="tab-tasks">
+      <div class="grid">
+        <div class="card">
+          <h2>Daily Task Planner</h2>
+          <p class="desc">Add tasks and manage your day</p>
+          <label for="taskInput">New Task</label>
+          <input id="taskInput" type="text" placeholder="e.g., Finish project report" />
+          <button class="btn" id="addTask">Add Task</button>
+          <div class="task-list" id="taskList"></div>
         </div>
       </div>
     </section>
   </div>
 
   <footer>
-    Made with 💖 for fun and practice.
+    Made with ❤️ for productivity
   </footer>
 
   <script>
@@ -161,6 +233,7 @@
       {btn: document.getElementById('tab-tip'), panel: document.getElementById('tip')},
       {btn: document.getElementById('tab-convert'), panel: document.getElementById('convert')},
       {btn: document.getElementById('tab-text'), panel: document.getElementById('text')},
+      {btn: document.getElementById('tab-tasks'), panel: document.getElementById('tasks')},
     ];
     tabs.forEach(({btn, panel}) => {
       btn.addEventListener('click', () => {
@@ -176,32 +249,32 @@
       const bill = parseFloat($('bill').value || '0');
       const tipPct = parseFloat($('tipPercent').value || '0');
       const people = Math.max(1, parseInt($('people').value || '1', 10));
-      if (bill <= 0) return $('tipOut').textContent = 'Please enter a valid bill 💸';
+      if (bill <= 0) return $('tipOut').textContent = 'Please enter a valid bill';
       const tip = +(bill * (tipPct/100)).toFixed(2);
       const total = +(bill + tip).toFixed(2);
       const perPerson = +(total / people).toFixed(2);
-      $('tipOut').innerHTML = `Tip: 💕 Rs ${tip}<br>Total: 🌟 Rs ${total}<br>Per person (${people}): 🎀 Rs ${perPerson}`;
+      $('tipOut').innerHTML = `Tip: Rs ${tip}<br>Total: Rs ${total}<br>Per person (${people}): Rs ${perPerson}`;
     });
     $('resetTip').addEventListener('click', () => {
       $('bill').value = '';
       $('tipPercent').value = '10';
       $('people').value = '1';
-      $('tipOut').textContent = 'Enter values and click Calculate 💫';
+      $('tipOut').textContent = 'Enter values and click Calculate';
     });
 
     // --- Converter ---
     const CM_PER_INCH = 2.54;
     $('toInch').addEventListener('click', () => {
       const cm = parseFloat($('cm').value || '0');
-      if (cm === 0) return $('convOut').textContent = 'Enter cm first 🌼';
+      if (cm === 0) return $('convOut').textContent = 'Enter cm first';
       const inch = cm / CM_PER_INCH; $('inch').value = inch.toFixed(3);
-      $('convOut').textContent = `${cm} cm = ${inch.toFixed(3)} in ✨`;
+      $('convOut').textContent = `${cm} cm = ${inch.toFixed(3)} in`;
     });
     $('toCm').addEventListener('click', () => {
       const inch = parseFloat($('inch').value || '0');
-      if (inch === 0) return $('convOut').textContent = 'Enter inch first 🌸';
+      if (inch === 0) return $('convOut').textContent = 'Enter inch first';
       const cm = inch * CM_PER_INCH; $('cm').value = cm.toFixed(2);
-      $('convOut').textContent = `${inch} in = ${cm.toFixed(2)} cm 💖`;
+      $('convOut').textContent = `${inch} in = ${cm.toFixed(2)} cm`;
     });
 
     // --- Text Counter ---
@@ -209,10 +282,35 @@
       const t = $('textbox').value.trim();
       const chars = t.length;
       const words = t ? t.split(/\s+/).length : 0;
-      $('textOut').innerHTML = `Characters: 🌸 ${chars}<br>Words: 🌼 ${words}`;
+      $('textOut').innerHTML = `Characters: ${chars}<br>Words: ${words}`;
     }
     $('analyze').addEventListener('click', analyzeText);
-    $('clearText').addEventListener('click', () => { $('textbox').value = ''; $('textOut').textContent = 'Nothing analyzed yet 🌼'; });
+    $('clearText').addEventListener('click', () => {
+      $('textbox').value = '';
+      $('textOut').textContent = 'Nothing analyzed yet';
+    });
+
+    // --- Task Planner ---
+    $('addTask').addEventListener('click', () => {
+      const taskText = $('taskInput').value.trim();
+      if (!taskText) return;
+      const li = document.createElement('div');
+      li.className = 'task';
+      li.innerHTML = `<span>${taskText}</span>
+        <div>
+          <button class="complete">✔</button>
+          <button class="delete">✖</button>
+        </div>`;
+      $('taskList').appendChild(li);
+      $('taskInput').value = '';
+
+      li.querySelector('.complete').addEventListener('click', () => {
+        li.classList.toggle('completed');
+      });
+      li.querySelector('.delete').addEventListener('click', () => {
+        li.remove();
+      });
+    });
   </script>
 </body>
 </html>
